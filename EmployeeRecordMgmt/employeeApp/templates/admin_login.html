@@ -1,0 +1,65 @@
+{% extends 'header.html' %}
+
+{% block main %}
+{% load static %}
+    <style>
+        body {
+            background-image: url('{% static "images/img_3.png" %}');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 50px;
+            min-height: 80vh; /* Ensure content fills the screen */
+        }
+
+        .form-container {
+            padding-bottom: 50px; /* Adjust this value as needed */
+        }
+
+        footer {
+            background-color: #dee2e6;
+            padding: 5px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-4 m-auto">
+                <div class="card shadow mt-5 bg-dark">
+                    <div class="card-title text-center mt-3">
+                        <img src="{% static 'images/profile.png' %}" width="150" height="150">
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user fa-2x"></i>
+                                    </span>
+                                </div>
+                                <input type="text" name="username" class="form-control p-2" placeholder="Username" pattern="[a-zA-Z0-9]+" title="Username should contain only letters and numbers">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-lock fa-2x"></i>
+                                    </span>
+                                </div>
+                                <input type="password" name="password" class="form-control p-2" placeholder="Password" pattern=".{8,}" title="Password should be at least 8 characters long">
+                            </div>
+                            <input type="submit" value="Admin Login" class="btn btn-success w-100">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

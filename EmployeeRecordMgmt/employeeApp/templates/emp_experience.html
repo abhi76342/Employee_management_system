@@ -1,0 +1,36 @@
+{% extends 'emp_base.html' %}
+
+{% block main %}
+<div class="card shadow m-2">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange;">My Work Experiences</h5>
+        <a href="{% url 'add_experience' %}" class="btn btn-primary float-right">Edit Work Experience</a>
+        <div class="container-fluid">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Designation</th>
+                        <th>Salary</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for experience in experiences %}
+                    <tr>
+                        <td>{{ experience.company_name }}</td>
+                        <td>{{ experience.designation }}</td>
+                        <td>{{ experience.salary }}</td>
+                        <td>{{ experience.duration }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No work experiences found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

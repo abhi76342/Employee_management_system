@@ -1,0 +1,41 @@
+{% extends 'emp_base.html' %}
+
+{% block main %}
+<div class="card shadow m-2">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange;">My Education Details</h5>
+        <a href="{% url 'add_education' %}" class="btn btn-primary float-right">Edit Education</a>
+        <div class="container-fluid">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Course</th>
+                        <th>College</th>
+                        <th>Passing Year</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for level, education in educations.items %}
+                    {% if education %}
+                    <tr>
+                        <td>{{ level|upper }}</td>
+                        <td>{{ education.course }}</td>
+                        <td>{{ education.college }}</td>
+                        <td>{{ education.passing_year }}</td>
+                        <td>{{ education.percentage }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td>{{ level|upper }}</td>
+                        <td colspan="4">No education details found.</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

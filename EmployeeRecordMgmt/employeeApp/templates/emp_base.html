@@ -1,0 +1,108 @@
+{% include 'header.html' %}
+
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    </head>
+    <body class="p-3 m-0 border-0 bd-example m-0 border-0 bg-light text-dark">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 px-1 position-fixed" style="overflow-y: scroll; height: 100vh;">
+                    <center>
+                        <img src="{% static 'images/profile.png' %}" width="100" height="100" class="img-thumbnail rounded-circle my-3" alt="Profile Image" />
+                    </center>
+                    <div class="list-group">
+                        <a href="{% url 'emp_home' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'emp_home' %} active {% endif %}">Dashboard</a>
+                        <a href="{% url 'profile' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'profile' %} active {% endif %}">Profile</a>
+                        <a href="{% url 'emp_experience' %}" class="list-group-item list-group-item-action {% if request.path == '/emp_experience/' or request.path == '/add_experience/' %} active {% endif %}">My Experience</a>
+                        <a href="{% url 'emp_education' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'emp_education' %} active {% endif %}">Education</a>
+                        <a href="{% url 'password_change' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'change_password' %} active {% endif %}">Change Password</a>
+                        <a href="{% url 'logout' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'logout' %} active {% endif %}">Logout</a>
+                    </div>
+                </div>
+                <div class="col-sm-10 offset-sm-2 p-0">
+                    <h5 class="text-center p-3 font-weight-bold" style="border-bottom: 2px solid green;">Employee Record Management System</h5>
+                    <div class="container-fluid px-4">
+                        <div class="row">
+                            <div class="col">
+                                <!-- Content directly loaded into the main page -->
+                                {% block main %} {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // JavaScript code to toggle dark/light mode
+            document.addEventListener("DOMContentLoaded", function () {
+                const lightSwitch = document.getElementById("lightSwitch");
+                const body = document.body;
+                const sidebar = document.querySelector(".col-sm-2");
+                const mainContent = document.querySelector(".col-sm-10");
+                const cards = document.querySelectorAll(".card");
+                const tables = document.querySelectorAll("table");
+                const listGroups = document.querySelectorAll(".list-group-item");
+
+                // Check if the user's preference is stored in local storage
+                const currentMode = localStorage.getItem("mode");
+                if (currentMode === "dark") {
+                    lightSwitch.checked = true;
+                    applyDarkMode();
+                }
+
+                lightSwitch.addEventListener("change", function () {
+                    if (lightSwitch.checked) {
+                        localStorage.setItem("mode", "dark");
+                        applyDarkMode();
+                    } else {
+                        localStorage.setItem("mode", "light");
+                        applyLightMode();
+                    }
+                });
+
+                function applyDarkMode() {
+                    body.classList.add("bg-dark", "text-light");
+                    body.classList.remove("bg-light", "text-dark");
+                    sidebar.classList.add("bg-dark", "text-light");
+                    sidebar.classList.remove("bg-light", "text-dark");
+                    mainContent.classList.add("bg-dark", "text-light");
+                    mainContent.classList.remove("bg-light", "text-dark");
+                    cards.forEach((card) => {
+                        card.classList.add("bg-dark", "text-light");
+                        card.classList.remove("bg-light", "text-dark");
+                    });
+                    tables.forEach((table) => {
+                        table.classList.add("table-dark");
+                        table.classList.remove("table-light");
+                    });
+                    listGroups.forEach((listGroup) => {
+                        listGroup.classList.add("bg-dark", "text-light");
+                        listGroup.classList.remove("bg-light", "text-dark");
+                    });
+                }
+
+                function applyLightMode() {
+                    body.classList.remove("bg-dark", "text-light");
+                    body.classList.add("bg-light", "text-dark");
+                    sidebar.classList.remove("bg-dark", "text-light");
+                    sidebar.classList.add("bg-light", "text-dark");
+                    mainContent.classList.remove("bg-dark", "text-light");
+                    mainContent.classList.add("bg-light", "text-dark");
+                    cards.forEach((card) => {
+                        card.classList.remove("bg-dark", "text-light");
+                        card.classList.add("bg-light", "text-dark");
+                    });
+                    tables.forEach((table) => {
+                        table.classList.remove("table-dark");
+                        table.classList.add("table-light");
+                    });
+                    listGroups.forEach((listGroup) => {
+                        listGroup.classList.remove("bg-dark", "text-light");
+                        listGroup.classList.add("bg-light", "text-dark");
+                    });
+                }
+            });
+        </script>
+    </body>
